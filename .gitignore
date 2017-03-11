@@ -24,6 +24,3 @@ local.properties
 
 # Windows files
 Thumbs.db
-
-# Signing config
-gradle/signing.gradle
