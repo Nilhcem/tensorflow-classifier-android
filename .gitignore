@@ -1,0 +1,29 @@
+# Temporary files
+*~
+\#*#
+
+# Android binary
+*.apk
+
+# hprof captures
+captures/
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file
+local.properties
+
+# IntelliJ
+*.iml
+.idea/
+
+# OSX files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+# Signing config
+gradle/signing.gradle
