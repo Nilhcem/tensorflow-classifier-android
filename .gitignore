@@ -11,7 +11,6 @@ captures/
 # Gradle files
 .gradle/
 build/
-.externalNativeBuild
 
 # Local configuration file
 local.properties
