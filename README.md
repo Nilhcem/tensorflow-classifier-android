@@ -1,6 +1,6 @@
-# TensorFlow (1.3.0) Image Classifier Gradle Standalone Port
+# TensorFlow (1.4.0) Image Classifier Gradle Standalone Port
 
-- Clone the project, and checkout the tag `1.3.0`
+- Clone the project, and checkout the tag `1.4.0`
 - Import it on Android Studio
 - Run it
 - That's all.
