@@ -43,7 +43,7 @@ public class RecognitionScoreView extends View implements ResultsView {
     fgPaint.setTextSize(textSizePx);
 
     bgPaint = new Paint();
-    bgPaint.setColor(0xcc4285f4);
+    bgPaint.setColor(0xcc008500);
   }
 
   @Override
