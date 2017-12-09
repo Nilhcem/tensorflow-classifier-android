@@ -28,7 +28,6 @@ import android.util.Size;
 import android.util.TypedValue;
 import android.view.Display;
 
-import org.tensorflow.demo.OverlayView.DrawCallback;
 import org.tensorflow.demo.env.BorderedText;
 import org.tensorflow.demo.env.ImageUtils;
 import org.tensorflow.demo.env.Logger;
@@ -142,14 +141,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
 
         cropToFrameTransform = new Matrix();
         frameToCropTransform.invert(cropToFrameTransform);
-
-        addCallback(
-                new DrawCallback() {
-                    @Override
-                    public void drawCallback(final Canvas canvas) {
-                        renderDebug(canvas);
-                    }
-                });
     }
 
     @Override

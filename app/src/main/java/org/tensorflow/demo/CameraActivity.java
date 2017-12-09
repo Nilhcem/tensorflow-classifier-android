@@ -401,13 +401,6 @@ public abstract class CameraActivity extends Activity
         }
     }
 
-    public void addCallback(final OverlayView.DrawCallback callback) {
-        final OverlayView overlay = (OverlayView) findViewById(R.id.debug_overlay);
-        if (overlay != null) {
-            overlay.addCallback(callback);
-        }
-    }
-
     public void onSetDebug(final boolean debug) {
     }
 
