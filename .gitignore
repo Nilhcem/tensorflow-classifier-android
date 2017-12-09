@@ -25,3 +25,6 @@ local.properties
 
 # Windows files
 Thumbs.db
+
+# Gradle
+gradle.properties

@@ -1,52 +1,84 @@
-/* Copyright 2016 The TensorFlow Authors. All Rights Reserved.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-==============================================================================*/
-
 package org.tensorflow.demo;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.view.View;
-import java.util.LinkedList;
-import java.util.List;
+import android.widget.LinearLayout;
 
-/**
- * A simple View providing a render callback to other classes.
- */
-public class OverlayView extends View {
-  private final List<DrawCallback> callbacks = new LinkedList<DrawCallback>();
 
-  public OverlayView(final Context context, final AttributeSet attrs) {
-    super(context, attrs);
-  }
+public class OverlayView extends LinearLayout {
+    private Bitmap windowFrame;
 
-  /**
-   * Interface defining the callback for client classes.
-   */
-  public interface DrawCallback {
-    public void drawCallback(final Canvas canvas);
-  }
-
-  public void addCallback(final DrawCallback callback) {
-    callbacks.add(callback);
-  }
-
-  @Override
-  public synchronized void draw(final Canvas canvas) {
-    for (final DrawCallback callback : callbacks) {
-      callback.drawCallback(canvas);
+    public OverlayView(Context context) {
+        super(context);
     }
-  }
+
+    public OverlayView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public OverlayView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+
+        if (windowFrame == null) {
+            createWindowFrame();
+        }
+
+        canvas.drawBitmap(windowFrame, 0, 0, null);
+    }
+
+    protected void createWindowFrame() {
+
+        int w = getWidth();
+        int h = getHeight();
+
+        windowFrame = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas osCanvas = new Canvas(windowFrame);
+
+        RectF outerRectangle = new RectF(0, 0, getWidth(), getHeight());
+
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.parseColor("#4885ed"));
+        osCanvas.drawRect(outerRectangle, paint);
+
+        paint.setColor(Color.TRANSPARENT);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
+
+        int pl = getPaddingLeft();
+        int pr = getPaddingRight();
+        int pt = getPaddingTop();
+        int pb = getPaddingBottom();
+
+        int usableWidth = w - (pl + pr);
+        int usableHeight = h - (pt + pb);
+
+        int radius = Math.min(usableWidth, usableHeight) / 2;
+        int cx = pl + (usableWidth / 2);
+        int cy = pt + (usableHeight / 2);
+
+        osCanvas.drawCircle(cx, cy, radius, paint);
+    }
+
+    @Override
+    public boolean isInEditMode() {
+        return true;
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+
+        windowFrame = null;
+    }
 }
