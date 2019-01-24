@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:3.2.1' // gradle-3.3.0 is not supported yet. gradle-3.2.1 works well
     }
 }
 
